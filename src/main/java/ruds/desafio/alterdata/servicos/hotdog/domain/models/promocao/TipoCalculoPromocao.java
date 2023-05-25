@@ -27,7 +27,7 @@ public enum TipoCalculoPromocao {
       Stream<TipoCalculoPromocao> stream = Arrays.stream(TipoCalculoPromocao.values());
       Predicate<TipoCalculoPromocao> predicate = (t) -> t.tipo == value;
       Optional<TipoCalculoPromocao> optional = stream.filter(predicate).findFirst();
-      if (optional.isEmpty()) throw new NegocioException(Translator.toLocale("tipo_promocao_desconhecido"));
+      if (!optional.isPresent()) throw new NegocioException(Translator.toLocale("tipo_promocao_desconhecido"));
       return optional.get();
     }
 }
