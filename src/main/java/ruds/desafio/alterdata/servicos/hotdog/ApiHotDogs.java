@@ -8,10 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
 @EntityScan("ruds.desafio.alterdata.servicos.hotdog.domain.models")
-public class ApiHotDogs {
+public class ApiHotDogs extends SpringBootServletInitializer {
 
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     public final static Instant START_TIME = Instant.now();
@@ -28,4 +30,8 @@ public class ApiHotDogs {
         LOGGER.info("API DE HOT-DOGS INICIADA");
     }
 
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(ApiHotDogs.class);
+    }
 }

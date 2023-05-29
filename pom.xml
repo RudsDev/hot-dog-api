@@ -12,12 +12,12 @@
     </parent>
 
     <groupId>ruds.desafio.alterdata</groupId>
-    <artifactId>hot-dog</artifactId>
+    <artifactId>hot-dog-api</artifactId>
     <version>1.0</version>
-    <name>hot-dogs-api</name>
+    <name>${project.artifactId}</name>
     <description>API de Hot Dogs!</description>
 
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,6 +27,11 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -99,7 +104,7 @@
     </dependencies>
 
     <build>
-        <finalName>hot-dogs-api</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

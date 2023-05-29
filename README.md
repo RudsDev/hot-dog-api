@@ -8,5 +8,5 @@ Este serviço é uma API REST desenvolvida em Java, utilizando Spring Boot como 
 
 # Como executar
 
-- No arquivo de configuração 'application.properties' faça as configurações de conexão necessárias do seu ambiente;
-- Use o comando **mvn spring-boot:run** para subir a aplicação
+- Na pasta raíz do projeto execute o comando `java -jar war/hot-dog-api.war`. Isso executará o arquivo *.war* já compilado existente na pasta do projeto.
+- **Atenção:** Esse arquivo não funcionará se executado dentro de um servidor de aplicação ou contâiner de servlets.
