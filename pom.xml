@@ -12,7 +12,7 @@
 
 	<groupId>dev.ruds</groupId>
 	<artifactId>hot-dog-api</artifactId>
-    <version>1.0</version>
+    <version>0.1</version>
     <name>${project.artifactId}</name>
     <description>API de Hot Dogs!</description>
 
