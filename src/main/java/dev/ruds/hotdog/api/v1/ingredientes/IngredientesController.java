@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.ruds.hotdog.domain.models.Ingrediente;
 import dev.ruds.hotdog.domain.records.IngredienteRecord;
-import dev.ruds.hotdog.utils.mappers.IngredienteMapper;
+import dev.ruds.hotdog.domain.services.IngredientesService;
 
 @RestController
 @RequestMapping("/v1/ingredientes")
 public class IngredientesController {
 
     @Autowired
-    IngredienteMapper mapper;
+    IngredientesService service;
 
     @PostMapping()
     public ResponseEntity<Ingrediente> create(
         @RequestBody IngredienteRecord input
     ) {
-        var ingrediente = mapper.toEntity(input);
+        var ingrediente = service.create(input);
         return new ResponseEntity<Ingrediente>(ingrediente, HttpStatus.CREATED);
     }
 
