@@ -43,4 +43,8 @@ public class IngredientesService {
     public void updatePreco(IngredientePrecoPartialRecord record) {
         repository.updatePreco(record.id(), new BigDecimal(record.preco()));
     }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }

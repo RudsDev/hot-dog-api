@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,5 +57,11 @@ public class IngredientesController {
     public ResponseEntity<String> updatePreco(@RequestBody IngredientePrecoPartialRecord record) {
         service.updatePreco(record);
         return new ResponseEntity<String>("Preço atualizado", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        service.delete(id);
+        return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
     }
 }
