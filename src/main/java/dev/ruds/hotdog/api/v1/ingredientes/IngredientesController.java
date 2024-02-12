@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +18,6 @@ import dev.ruds.hotdog.domain.dtos.inputs.IngredientePrecoPartialRecord;
 import dev.ruds.hotdog.domain.models.Ingrediente;
 import dev.ruds.hotdog.domain.records.IngredienteRecord;
 import dev.ruds.hotdog.domain.services.IngredientesService;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/v1/ingredientes")
@@ -40,6 +40,12 @@ public class IngredientesController {
         return new ResponseEntity<List<Ingrediente>>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Ingrediente> findById(@PathVariable Long id) {
+        var ingrediente = service.findById(id);
+        return new ResponseEntity<Ingrediente>(ingrediente, HttpStatus.OK);
+    }
+    
     @PutMapping("/{id}")
     public ResponseEntity<Ingrediente> update(@PathVariable Long id, @RequestBody IngredienteRecord input) {       
         var ingrediente = service.update(id, input);

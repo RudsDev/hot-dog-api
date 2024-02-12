@@ -30,6 +30,11 @@ public class IngredientesService {
         return repository.findAll();
     }
 
+    public Ingrediente findById(Long id){
+        var optional = repository.findById(id);
+        return optional.isPresent() ? optional.get() : null;
+    }
+
     public Ingrediente update(Long id, IngredienteRecord record) {
         var ingrediente = mapper.toEntity(id, record);
         return repository.save(ingrediente);
