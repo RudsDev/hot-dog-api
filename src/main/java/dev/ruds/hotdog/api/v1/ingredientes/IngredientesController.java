@@ -16,6 +16,8 @@ import dev.ruds.hotdog.domain.dtos.inputs.IngredientePrecoPartialRecord;
 import dev.ruds.hotdog.domain.models.Ingrediente;
 import dev.ruds.hotdog.domain.records.IngredienteRecord;
 import dev.ruds.hotdog.domain.services.IngredientesService;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/v1/ingredientes")
@@ -36,6 +38,12 @@ public class IngredientesController {
     public ResponseEntity<List<Ingrediente>> findAll() {
         var list = service.findAll(); 
         return new ResponseEntity<List<Ingrediente>>(list, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Ingrediente> update(@PathVariable Long id, @RequestBody IngredienteRecord input) {       
+        var ingrediente = service.update(id, input);
+        return new ResponseEntity<Ingrediente>(ingrediente, HttpStatus.CREATED);
     }
 
     @PatchMapping("/preco")

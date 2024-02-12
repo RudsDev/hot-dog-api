@@ -30,6 +30,11 @@ public class IngredientesService {
         return repository.findAll();
     }
 
+    public Ingrediente update(Long id, IngredienteRecord record) {
+        var ingrediente = mapper.toEntity(id, record);
+        return repository.save(ingrediente);
+    }
+
     public void updatePreco(IngredientePrecoPartialRecord record) {
         repository.updatePreco(record.id(), new BigDecimal(record.preco()));
     }

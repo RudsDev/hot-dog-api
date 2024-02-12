@@ -1,5 +1,7 @@
 package dev.ruds.hotdog.utils.mappers;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,5 +18,10 @@ public class IngredienteMapper {
 
     public Ingrediente toEntity(IngredienteRecord record) {
         return mapper.convertValue(record, Ingrediente.class);
+    }
+
+    public Ingrediente toEntity(Long id, IngredienteRecord record) {
+        var preco = new BigDecimal(record.preco());
+        return new Ingrediente(id, record.nome(), preco);
     }
 }
