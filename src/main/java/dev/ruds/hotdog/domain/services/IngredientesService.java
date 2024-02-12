@@ -1,5 +1,7 @@
 package dev.ruds.hotdog.domain.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +24,7 @@ public class IngredientesService {
         return repository.save(ingrediente);
     }
 
+    public List<Ingrediente> findAll() {
+        return repository.findAll();
+    }
 }
