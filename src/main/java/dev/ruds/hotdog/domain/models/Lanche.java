@@ -1,5 +1,6 @@
 package dev.ruds.hotdog.domain.models;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "LANCHES")
-public class Lanche {
+public class Lanche implements Vendavel {
     
     @Id
     @GeneratedValue
@@ -48,4 +49,11 @@ public class Lanche {
         return ingredientes;
     }
 
+    @Override
+    public BigDecimal preco() {
+        return ingredientes
+            .stream()
+            .map(i -> i.getPreco())
+            .reduce(BigDecimal.ZERO, (c, n) -> c.add(n));
+    }
 }
