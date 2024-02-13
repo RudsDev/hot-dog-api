@@ -21,6 +21,10 @@ public class Ingrediente {
     
     public Ingrediente() {}
 
+    public Ingrediente(Long id) {
+        this.id = id;
+    }
+
     public Ingrediente(String nome, BigDecimal preco) {
         this.nome = nome;
         this.preco = preco;
