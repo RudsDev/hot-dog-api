@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.ruds.hotdog.domain.models.calculo.CalculoPromocao;
-import dev.ruds.hotdog.domain.models.calculo.TipoCalculoPromocao;
+import dev.ruds.hotdog.domain.models.calculo.tipo.TipoCalculoPromocao;
 
 public class Promocao implements Vendavel{
     

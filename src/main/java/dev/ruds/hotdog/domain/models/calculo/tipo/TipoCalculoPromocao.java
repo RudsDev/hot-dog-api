@@ -1,4 +1,4 @@
-package dev.ruds.hotdog.domain.models.calculo;
+package dev.ruds.hotdog.domain.models.calculo.tipo;
 
 import java.util.Arrays;
 import java.util.Optional;
