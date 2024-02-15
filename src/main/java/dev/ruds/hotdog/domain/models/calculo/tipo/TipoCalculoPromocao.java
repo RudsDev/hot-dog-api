@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 public enum TipoCalculoPromocao {
     
+    NAO_ALTERA(-1),
     ACRESCIMO_VALOR(1),
     DESCONTO_VALOR(2),
     ACRESCIMO_PORCENTAGEM(3),

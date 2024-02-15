@@ -1,5 +1,8 @@
 package dev.ruds.hotdog.domain.models.calculo.tipo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class TipoCalculoPromocaoFactory {
     public TipoCalculoPromocaoStrategy create(TipoCalculoPromocao tipoCalculo) {
         switch (tipoCalculo) {
@@ -12,7 +15,7 @@ public class TipoCalculoPromocaoFactory {
             case DESCONTO_PORCENTAGEM:
                 return new DescontoPorcentagem();
             default:
-                return null;
+                return new NaoAltera();
         }
     }
 }
