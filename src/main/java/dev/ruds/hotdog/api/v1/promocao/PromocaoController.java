@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.ruds.hotdog.domain.models.Lanche;
 import dev.ruds.hotdog.domain.models.Promocao;
-import dev.ruds.hotdog.domain.models.calculo.TipoCalculoPromocao;
+import dev.ruds.hotdog.domain.models.calculo.tipo.TipoCalculoPromocao;
 import dev.ruds.hotdog.domain.records.IngredienteRecord;
 import dev.ruds.hotdog.domain.services.LanchesService;
 
@@ -25,16 +25,7 @@ public class PromocaoController {
     public String create(
         @RequestBody IngredienteRecord input
     ) {
-        var lanche = service.findById(3L);
-
-        var lanches = new ArrayList<Lanche>();
-
-        lanches.add(lanche);
-        lanches.add(lanche);
-        lanches.add(lanche);
-
-        var promocao = new Promocao("Teste", lanches, TipoCalculoPromocao.DESCONTO_PORCENTAGEM, 50.0);
-
+        var promocao = new Promocao("Teste", new ArrayList<Lanche>(), TipoCalculoPromocao.NAO_ALTERA, 50.0);
         return promocao.preco().toString();
     }
 }
