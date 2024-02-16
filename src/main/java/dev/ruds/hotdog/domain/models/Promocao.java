@@ -4,19 +4,46 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import dev.ruds.hotdog.domain.models.calculo.CalculoPromocao;
 import dev.ruds.hotdog.domain.models.calculo.tipo.TipoCalculoPromocao;
+import dev.ruds.hotdog.domain.records.PromocaoRecord;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 
-public class Promocao implements Vendavel{
+@Entity
+public class Promocao implements Vendavel {
     
+    @Id
+    @GeneratedValue
     private Long id;
     private String nome;
     private Double baseCalculo;
+
+    @Enumerated(EnumType.ORDINAL)
     private TipoCalculoPromocao tipoCalculo;
-    private CalculoPromocao calculo;
+
+    @OneToMany
     private List<Lanche> itens = new ArrayList<Lanche>();
+    
+    @JsonIgnore
+    @Transient
+    private CalculoPromocao calculo;
 
     public Promocao() {}
+
+    public Promocao(PromocaoRecord record, List<Lanche> itens) {
+        this.nome = record.nome();
+        this.tipoCalculo = TipoCalculoPromocao.get(record.tipoCalculo());
+        this.baseCalculo = record.baseCalculo();
+        this.itens = itens;
+    }
 
     public Promocao(Long id, String nome, List<Lanche> itens, Integer tipoCalculo, Double baseCalculo) {
         this.id = id;
@@ -54,4 +81,15 @@ public class Promocao implements Vendavel{
         return nome;
     }
 
+    public Double getBaseCalculo() {
+        return baseCalculo;
+    }
+
+    public int getTipoCalculo() {
+        return tipoCalculo.getTipo();
+    }
+
+    public List<Lanche> getItens() {
+        return itens;
+    }
 }

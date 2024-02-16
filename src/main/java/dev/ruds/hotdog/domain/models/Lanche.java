@@ -35,6 +35,10 @@ public class Lanche implements Vendavel {
         this.ingredientes = ingredientes;
     }
 
+    public Lanche(Long id) {
+        this.id = id;
+    }
+
     public Lanche() {}
 
     public Long getId() {
