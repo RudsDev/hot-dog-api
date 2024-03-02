@@ -6,5 +6,5 @@ public record PromocaoRecord(
     String nome,
     Double baseCalculo,
     Integer tipoCalculo,
-    List<Long> itens 
+    List<ItemPromocaoRecord> itens 
 ) {}

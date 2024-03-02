@@ -9,9 +9,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.ruds.hotdog.domain.models.calculo.CalculoPromocao;
 import dev.ruds.hotdog.domain.models.calculo.tipo.TipoCalculoPromocao;
 import dev.ruds.hotdog.domain.records.PromocaoRecord;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -29,8 +31,8 @@ public class Promocao implements Vendavel {
     @Enumerated(EnumType.ORDINAL)
     private TipoCalculoPromocao tipoCalculo;
 
-    @OneToMany
-    private List<Lanche> itens = new ArrayList<Lanche>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ItemPromocao> itens = new ArrayList<ItemPromocao>();
     
     @JsonIgnore
     @Transient
@@ -38,14 +40,14 @@ public class Promocao implements Vendavel {
 
     public Promocao() {}
 
-    public Promocao(PromocaoRecord record, List<Lanche> itens) {
+    public Promocao(PromocaoRecord record, List<ItemPromocao> itens) {
         this.nome = record.nome();
         this.tipoCalculo = TipoCalculoPromocao.get(record.tipoCalculo());
         this.baseCalculo = record.baseCalculo();
         this.itens = itens;
     }
 
-    public Promocao(Long id, String nome, List<Lanche> itens, Integer tipoCalculo, Double baseCalculo) {
+    public Promocao(Long id, String nome, List<ItemPromocao> itens, Integer tipoCalculo, Double baseCalculo) {
         this.id = id;
         this.nome = nome;
         this.itens = itens;
@@ -60,7 +62,7 @@ public class Promocao implements Vendavel {
         this.baseCalculo = baseCalculo;
     }
 
-    public Promocao(String nome, List<Lanche> itens, TipoCalculoPromocao tipoCalculo, Double baseCalculo) {
+    public Promocao(String nome, List<ItemPromocao> itens, TipoCalculoPromocao tipoCalculo, Double baseCalculo) {
         this.nome = nome;
         this.itens = itens;
         this.tipoCalculo = tipoCalculo;
@@ -89,7 +91,7 @@ public class Promocao implements Vendavel {
         return tipoCalculo.getTipo();
     }
 
-    public List<Lanche> getItens() {
+    public List<ItemPromocao> getItens() {
         return itens;
     }
 }

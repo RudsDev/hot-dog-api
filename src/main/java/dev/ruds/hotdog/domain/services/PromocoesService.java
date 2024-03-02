@@ -1,12 +1,16 @@
 package dev.ruds.hotdog.domain.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.ruds.hotdog.domain.models.ItemPromocao;
 import dev.ruds.hotdog.domain.models.Lanche;
 import dev.ruds.hotdog.domain.models.Promocao;
+import dev.ruds.hotdog.domain.records.ItemPromocaoRecord;
 import dev.ruds.hotdog.domain.records.PromocaoRecord;
 import dev.ruds.hotdog.domain.respositorys.LanchesRepository;
 import dev.ruds.hotdog.domain.respositorys.PromocoesRepository;
@@ -25,15 +29,15 @@ public class PromocoesService {
     LanchesRepository repositoryLanches;
 
     public Promocao create(PromocaoRecord record) {
-        var itens = lanches(record.itens());
+        var itens = createItensPromocao(record.itens());
         var promocao = repository.save(new Promocao(record, itens));
         var optional = repository.findById(promocao.getId());
         return optional.isPresent() ? optional.get() : null;
     }
 
     public List<Promocao> findAll() {
-        var list = repository.findAll();
-        return list;
+        var iterable = repository.findAll();
+        return StreamSupport.stream(iterable.spliterator(), false).toList();
     }
 
     public Promocao findById(Long id) {
@@ -42,8 +46,8 @@ public class PromocoesService {
     }
 
     public Promocao update(Long id, PromocaoRecord record) {
-        var lanches = lanchesOnlyId(record.itens());
-        var lanche = new Promocao(id, record.nome(), lanches, record.tipoCalculo(), record.baseCalculo());
+        var itens = createItensPromocao(record.itens());
+        var lanche = new Promocao(id, record.nome(), itens, record.tipoCalculo(), record.baseCalculo());
         return repository.save(lanche);
     }
 
@@ -51,12 +55,18 @@ public class PromocoesService {
         repository.deleteById(id);
     }
 
-    private List<Lanche> lanches(List<Long> itens) {
-        return repositoryLanches.findAllById(itens);
+    private List<ItemPromocao> createItensPromocao(List<ItemPromocaoRecord> itens) {
+        var lanchesId = itens.stream().map(i -> i.lanche()).toList();
+        var qtds = itens.stream().map(i -> i.qtd()).toList();
+        var lanches = repositoryLanches.findAllById(lanchesId);
+        return createItensPromocaoLot(qtds, lanches);
     }
 
-    private List<Lanche> lanchesOnlyId(List<Long> ingredientes) {
-        return ingredientes.stream().map(i -> new Lanche(i)).toList();
+    private List<ItemPromocao> createItensPromocaoLot(List<Integer> qtds, List<Lanche> lanches) {
+        var itensPromocao = new ArrayList<ItemPromocao>();
+        for (int j = 0; j < qtds.size(); j++)
+            itensPromocao.add(new ItemPromocao(qtds.get(j), lanches.get(j)));
+        return itensPromocao;
     }
 
 }
