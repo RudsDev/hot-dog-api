@@ -64,7 +64,7 @@ public class PromocoesService {
 
     private List<ItemPromocao> createItensPromocaoLot(List<Integer> qtds, List<Lanche> lanches) {
         var itensPromocao = new ArrayList<ItemPromocao>();
-        for (int j = 0; j < qtds.size(); j++)
+        for (int j = 0; j < lanches.size(); j++)
             itensPromocao.add(new ItemPromocao(qtds.get(j), lanches.get(j)));
         return itensPromocao;
     }
