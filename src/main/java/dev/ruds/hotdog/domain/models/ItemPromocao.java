@@ -44,4 +44,29 @@ public class ItemPromocao implements Vendavel {
         BigDecimal multiplicand = BigDecimal.valueOf(quantidade);
         return preco.multiply(multiplicand);
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Lanche getLanche() {
+        return lanche;
+    }
+
+    public void setLanche(Lanche lanche) {
+        this.lanche = lanche;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
 }
