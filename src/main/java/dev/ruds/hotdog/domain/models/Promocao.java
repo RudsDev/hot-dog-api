@@ -16,6 +16,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 
@@ -32,6 +33,7 @@ public class Promocao implements Vendavel {
     private TipoCalculoPromocao tipoCalculo;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "promocao_id")
     private List<ItemPromocao> itens = new ArrayList<ItemPromocao>();
     
     @JsonIgnore

@@ -6,8 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ItemPromocao implements Vendavel {
@@ -16,8 +15,7 @@ public class ItemPromocao implements Vendavel {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     Lanche lanche;
 
     Integer quantidade;
