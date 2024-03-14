@@ -32,7 +32,7 @@ public class Promocao implements Vendavel {
     @Enumerated(EnumType.ORDINAL)
     private TipoCalculoPromocao tipoCalculo;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "promocao_id")
     private List<ItemPromocao> itens = new ArrayList<ItemPromocao>();
     

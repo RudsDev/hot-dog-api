@@ -11,10 +11,12 @@ import dev.ruds.hotdog.domain.models.ItemPromocao;
 import dev.ruds.hotdog.domain.models.Lanche;
 import dev.ruds.hotdog.domain.models.Promocao;
 import dev.ruds.hotdog.domain.records.ItemPromocaoRecord;
+import dev.ruds.hotdog.domain.records.PromocaoOutputRecord;
 import dev.ruds.hotdog.domain.records.PromocaoRecord;
 import dev.ruds.hotdog.domain.respositorys.LanchesRepository;
 import dev.ruds.hotdog.domain.respositorys.PromocoesRepository;
 import dev.ruds.hotdog.utils.mappers.IngredienteMapper;
+import dev.ruds.hotdog.utils.mappers.PromocaoMapper;
 
 @Service
 public class PromocoesService {
@@ -23,14 +25,18 @@ public class PromocoesService {
     IngredienteMapper mapper;
 
     @Autowired
+    PromocaoMapper promocaoMapper;
+
+    @Autowired
     PromocoesRepository repository;
 
     @Autowired
     LanchesRepository repositoryLanches;
 
-    public Promocao create(PromocaoRecord record) {
-        var itens = createItensPromocao(record.itens());
-        return repository.save(new Promocao(record, itens));
+    public PromocaoOutputRecord create(PromocaoRecord record) {
+        var itens = createItensPromocaoNoDbAcess(record.itens());
+        var promocao = repository.save(new Promocao(record, itens));
+        return promocaoMapper.toRecord(promocao);
     }
 
     public List<Promocao> findAll() {
@@ -57,6 +63,12 @@ public class PromocoesService {
         var lanchesId = itens.stream().map(i -> i.lanche()).toList();
         var qtds = itens.stream().map(i -> i.qtd()).toList();
         var lanches = repositoryLanches.findAllById(lanchesId);
+        return createItensPromocaoLot(qtds, lanches);
+    }
+
+    private List<ItemPromocao> createItensPromocaoNoDbAcess(List<ItemPromocaoRecord> itens) {
+        var qtds = itens.stream().map(i -> i.qtd()).toList();
+        var lanches = itens.stream().map(i -> new Lanche(i.lanche())).toList();
         return createItensPromocaoLot(qtds, lanches);
     }
 

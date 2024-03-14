@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.ruds.hotdog.domain.models.Promocao;
+import dev.ruds.hotdog.domain.records.PromocaoOutputRecord;
 import dev.ruds.hotdog.domain.records.PromocaoRecord;
 import dev.ruds.hotdog.domain.services.PromocoesService;
 
@@ -26,11 +27,11 @@ public class PromocaoController {
     PromocoesService service;
 
     @PostMapping()
-    public ResponseEntity<Promocao> create(
+    public ResponseEntity<PromocaoOutputRecord> create(
         @RequestBody PromocaoRecord input
     ) {
         var promocao = service.create(input);
-        return new ResponseEntity<Promocao>(promocao, HttpStatus.CREATED);
+        return new ResponseEntity<PromocaoOutputRecord>(promocao, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
