@@ -30,9 +30,7 @@ public class PromocoesService {
 
     public Promocao create(PromocaoRecord record) {
         var itens = createItensPromocao(record.itens());
-        var promocao = repository.save(new Promocao(record, itens));
-        var optional = repository.findById(promocao.getId());
-        return optional.isPresent() ? optional.get() : null;
+        return repository.save(new Promocao(record, itens));
     }
 
     public List<Promocao> findAll() {
