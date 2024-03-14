@@ -26,9 +26,7 @@ public class LanchesService {
 
     public Lanche create(LancheRecord record) {
         var ingredientes = ingredientes(record.ingredientes());
-        var lanche = repository.save(new Lanche(record.nome(), ingredientes));
-        var optional = repository.findById(lanche.getId());
-        return optional.isPresent() ? optional.get() : null;
+        return repository.save(new Lanche(record.nome(), ingredientes));
     }
 
     public List<Lanche> findAll() {
