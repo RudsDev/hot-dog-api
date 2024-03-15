@@ -44,9 +44,9 @@ public class PromocaoController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Promocao>> findAll() {
+    public ResponseEntity<List<PromocaoOutputRecord>> findAll() {
         var list = service.findAll();
-        return new ResponseEntity<List<Promocao>>(list, HttpStatus.OK);
+        return new ResponseEntity<List<PromocaoOutputRecord>>(list, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

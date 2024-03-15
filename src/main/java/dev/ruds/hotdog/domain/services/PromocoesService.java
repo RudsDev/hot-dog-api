@@ -2,6 +2,7 @@ package dev.ruds.hotdog.domain.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +40,10 @@ public class PromocoesService {
         return promocaoMapper.toRecord(promocao);
     }
 
-    public List<Promocao> findAll() {
+    public List<PromocaoOutputRecord> findAll() {
         var iterable = repository.findAll();
-        return StreamSupport.stream(iterable.spliterator(), false).toList();
+        Function<Promocao, PromocaoOutputRecord> mapper = i -> promocaoMapper.toRecord(i);
+        return StreamSupport.stream(iterable.spliterator(), false).map(mapper).toList();
     }
 
     public Promocao findById(Long id) {
