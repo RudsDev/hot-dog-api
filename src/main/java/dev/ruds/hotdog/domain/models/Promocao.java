@@ -13,7 +13,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -32,7 +31,7 @@ public class Promocao implements Vendavel {
     @Enumerated(EnumType.ORDINAL)
     private TipoCalculoPromocao tipoCalculo;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "promocao_id")
     private List<ItemPromocao> itens = new ArrayList<ItemPromocao>();
     
