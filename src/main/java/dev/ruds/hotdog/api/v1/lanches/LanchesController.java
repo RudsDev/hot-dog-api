@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.ruds.hotdog.domain.dtos.outputs.LanchePartialRecord;
 import dev.ruds.hotdog.domain.models.Lanche;
 import dev.ruds.hotdog.domain.records.LancheRecord;
 import dev.ruds.hotdog.domain.services.LanchesService;
@@ -44,9 +45,9 @@ public class LanchesController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Lanche>> findAll() {
+    public ResponseEntity<List<LanchePartialRecord>> findAll() {
         var list = service.findAll();
-        return new ResponseEntity<List<Lanche>>(list, HttpStatus.OK);
+        return new ResponseEntity<List<LanchePartialRecord>>(list, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

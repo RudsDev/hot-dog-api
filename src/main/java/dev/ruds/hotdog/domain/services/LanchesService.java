@@ -5,18 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dev.ruds.hotdog.domain.dtos.outputs.LanchePartialRecord;
 import dev.ruds.hotdog.domain.models.Ingrediente;
 import dev.ruds.hotdog.domain.models.Lanche;
 import dev.ruds.hotdog.domain.records.LancheRecord;
 import dev.ruds.hotdog.domain.respositorys.IngredientesRepository;
 import dev.ruds.hotdog.domain.respositorys.LanchesRepository;
-import dev.ruds.hotdog.utils.mappers.IngredienteMapper;
+import dev.ruds.hotdog.utils.mappers.LancheMapper;
 
 @Service
 public class LanchesService {
     
     @Autowired
-    IngredienteMapper mapper;
+    LancheMapper mapper;
 
     @Autowired
     LanchesRepository repository;
@@ -29,9 +30,12 @@ public class LanchesService {
         return repository.save(new Lanche(record.nome(), ingredientes));
     }
 
-    public List<Lanche> findAll() {
-        var list = repository.findAll();
-        return list;
+    public List<LanchePartialRecord> findAll() {
+        return repository
+            .findAll()
+            .stream()
+            .map(i -> mapper.toOutputRecord(i))
+            .toList();
     }
 
     public Lanche findById(Long id) {

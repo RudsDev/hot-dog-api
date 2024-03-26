@@ -21,7 +21,7 @@ public class Lanche implements Vendavel {
 
 	private String nome;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
 
     public Lanche(Long id, String nome, List<Ingrediente> ingredientes) {
